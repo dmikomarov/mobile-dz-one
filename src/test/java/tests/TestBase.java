@@ -9,15 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import drivers.BrowserstackMobileDriver;
 import helpers.Attach;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TestBase {
   @BeforeAll
   static void beforeAll() {
     Configuration.browser = BrowserstackMobileDriver.class.getName();
     Configuration.browserSize = null;
-    open(); // костыль для конфигурации селенида для мобильной автоматизации
+    // костыль для конфигурации селенида для мобильной автоматизации
 //        Configuration.timeout = 15000;
 //        Configuration.pageLoadTimeout = 15000;
   }
