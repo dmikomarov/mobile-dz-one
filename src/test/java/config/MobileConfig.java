@@ -2,34 +2,34 @@ package config;
 
 import org.aeonbits.owner.Config;
 
+@Config.Sources({"classpath:${env}.properties"})
+public interface MobileConfig extends Config {
 
-@Config.Sources({"classpath:${device}.properties"})
+    @Key("user")
+    String getUser();
 
-public interface  MobileConfig extends Config {
-  @Key("user")
-  String getUser();
+    @Key("key")
+    String getKey();
 
-  @Key("key")
-  String getKey();
+    @Key("app_url")
+    String getAppUrl();
 
-  @Key("app_url")
-  String getAppUrl();
+    @Key("device")
+    String getDevice();
 
-  @Key("device")
-  String getDevice();
+    @Key("os_version")
+    String getOsVersion();
 
-  @Key("os_version")
-  String getOsVersion();
+    @Key("project")
+    String getProject();
 
-  @Key("project")
-  String getProject();
+    @Key("build")
+    String getBuild();
 
-  @Key("build")
-  String getBuild();
+    @Key("name")
+    String getName();
 
-  @Key("name")
-  String getName();
+    @Key("remote_url")
+    String getRemoteUrl();
 
-  @Key("remote_url")
-  String getRemoteUrl();
 }
