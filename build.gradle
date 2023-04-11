@@ -50,6 +50,9 @@ allure {
 tasks.withType(Test) {
     systemProperties(System.getProperties())
     useJUnitPlatform()
+    if (System.getProperty("device") == null) {
+        systemProperties += ['device' : 'android']
+    }
 
     testLogging {
         lifecycle {
