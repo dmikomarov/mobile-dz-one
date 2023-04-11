@@ -64,12 +64,14 @@ tasks.withType(JavaCompile) {
 }
 
 task android(type: Test) {
+    systemProperties += ['env' : 'android']
     useJUnitPlatform {
         includeTags("android")
     }
 }
 
 task ios(type: Test) {
+    systemProperties += ['env' : 'ios']
     useJUnitPlatform {
         includeTags("ios")
     }
