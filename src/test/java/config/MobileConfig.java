@@ -3,7 +3,7 @@ package config;
 import org.aeonbits.owner.Config;
 
 
-@Config.Sources({"classpath:${env}.properties"})
+@Config.Sources({"classpath:${device}.properties"})
 
 public interface  MobileConfig extends Config {
   @Key("user")
