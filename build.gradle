@@ -29,7 +29,8 @@ dependencies {
             "io.appium:java-client:8.3.0",
             "org.slf4j:slf4j-simple:$slf4jVersion",
             "org.aeonbits.owner:owner:1.0.12",
-            "org.assertj:assertj-core:$assertJVersion"
+            "org.assertj:assertj-core:$assertJVersion",
+            'commons-io:commons-io:2.11.0'
     )
 }
 
@@ -74,5 +75,12 @@ task ios(type: Test) {
     systemProperties += ['env' : 'ios']
     useJUnitPlatform {
         includeTags("ios")
+    }
+}
+
+task emulator(type: Test) {
+    useJUnitPlatform {
+        systemProperties += ['env' : 'emulator']
+        includeTags 'emulator'
     }
 }
