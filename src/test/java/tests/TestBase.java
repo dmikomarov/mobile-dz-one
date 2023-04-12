@@ -1,28 +1,33 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import drivers.BrowserstackMobileDriver;
+import drivers.LocalMobileDriver;
+import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import drivers.BrowserstackMobileDriver;
-import helpers.Attach;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class TestBase {
 
-    static {
-        if (System.getProperty("env") == null) {
-            throw new RuntimeException("Забыли передать System Properties [env]");
-        }
-    }
-
     @BeforeAll
     static void beforeAll() {
-        Configuration.browser = BrowserstackMobileDriver.class.getName();
+        Configuration.browser = LocalMobileDriver.class.getName();
+
+        String deviceHost = System.getProperty("deviceHost");
+        switch (deviceHost) {
+            case "android":
+            case "ios":
+                Configuration.browser = BrowserstackMobileDriver.class.getName();
+                break;
+            case "emulator":
+                Configuration.browser = LocalMobileDriver.class.getName();
+                break;
+        }
         Configuration.browserSize = null;
     }
 
@@ -34,10 +39,16 @@ public class TestBase {
 
     @AfterEach
     void afterEach() {
-        String sessionId = Selenide.sessionId().toString();
+        String deviceHost = System.getProperty("deviceHost");
+
         Attach.pageSource();
         closeWebDriver();
-        Attach.addVideo(sessionId);
+
+        if (deviceHost.equals("android")) {
+            Attach.addVideo(sessionId().toString());
+        } else if (deviceHost.equals("ios")) {
+            Attach.addVideo(sessionId().toString());
+        }
     }
 
 }
